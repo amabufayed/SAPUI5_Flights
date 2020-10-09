@@ -1,0 +1,21 @@
+<mvc:View 
+	controllerName="SAPUI_Flights.controller.Home" 
+	xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true" 
+	xmlns="sap.m">
+	<Page title="Avaliable flights">
+		<content>
+			<List items="{
+				path: '/FlightsSet',
+				sorter: [{path: 'Cityfrom'}, {path: 'Cityto'}]
+			 }"> 
+				<StandardListItem 
+					title="{Cityfrom} to {Cityto}"
+					description="No: {Connid}, Carrier: {Carrid}"
+					type="Active"
+					press='.onListItemPress' />
+			</List>
+		</content>
+	</Page>
+	
+</mvc:View>

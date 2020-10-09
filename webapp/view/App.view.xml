@@ -1,0 +1,16 @@
+<mvc:View controllerName="SAPUI_Flights.controller.App" xmlns:mvc="sap.ui.core.mvc"
+	displayBlock="true" xmlns="sap.m" xmlns:f="sap.f">
+	<App
+		id="app"
+		class="sapUiDemoCart">
+		<f:FlexibleColumnLayout
+			id="layout"
+			busy="{appView>/busy}"
+			busyIndicatorDelay="{appView>/delay}"
+			layout="{appView>/layout}"
+			backgroundDesign="Translucent"
+			class="sapUiDemoCart"
+			stateChange='.onStateChange'>
+		</f:FlexibleColumnLayout>
+	</App>
+</mvc:View>
