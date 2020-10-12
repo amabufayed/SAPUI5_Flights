@@ -1,8 +1,9 @@
 sap.ui.define([
     "./BaseController",
-    "../model/formatter"
+    "../model/formatter",
+    "sap/ui/model/json/JSONModel"
 ], function(
-	BaseController, formatter
+	BaseController, formatter, JSONModel
 ) {
 	"use strict";
 
@@ -17,7 +18,7 @@ sap.ui.define([
         _routePatternMatched: function (oEvent) {
             this.connid = oEvent.getParameter("arguments").connid;
             this.getView().bindElement("/FlightAvaliabilitySet('" + this.connid + "')");
-            console.log("flightDetail")
+            
         }
 	});
 });

@@ -1,76 +1,136 @@
-<mvc:View 
-	controllerName="SAPUI_Flights.controller.FlightDetail"
-	xmlns="sap.m"
-	xmlns:mvc="sap.ui.core.mvc"
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.uxap"
 	xmlns:layout="sap.ui.layout"
-	xmlns:f="sap.f">
-		<f:DynamicPage>
-			<!-- DynamicPage Title -->
-			<f:title>
-				<f:DynamicPageTitle>
-					<f:heading>
-						<Title text="Selected flight: {Connid}"/>
-					</f:heading>			
-				</f:DynamicPageTitle>
-			</f:title>
-			<!-- DynamicPage Header -->
-			<f:header>
-				<f:DynamicPageHeader pinnable="true">
-					<layout:HorizontalLayout allowWrapping="true">
-						<layout:VerticalLayout class="sapUiMediumMarginEnd">
-							<ObjectAttribute title="Mandt" text="{Mandt}"/>
-							<ObjectAttribute title="Carrier ID" text="{Carrid}"/>
-							<ObjectAttribute title="Connection ID" text="{Connid}"/>
-						</layout:VerticalLayout>
+	controllerName="SAPUI_Flights.controller.FlightDetail"
+	xmlns:m="sap.m"
+	height="100%">
+	<ObjectPageLayout id="ObjectPageLayout"
+		showTitleInHeaderContent="true"
+		showEditHeaderButton="true"
+		editHeaderButtonPress="handleEditBtnPress">
+		<headerTitle>
+			<ObjectPageDynamicHeaderTitle>
 
-						<layout:VerticalLayout>
-							<ObjectAttribute title="Maximum seats"/>
-							<ObjectStatus 
-								text="{Seatsmax}" 
-								state="Success" />
-						</layout:VerticalLayout>
-					</layout:HorizontalLayout>
-				</f:DynamicPageHeader>
-			</f:header>
-			<f:content>
-				<VBox>
-					<Label text="Manndt" />
-					<Text text="{Mandt}" />
+				<expandedHeading>
+						<m:Title text="Flight details of {Connid}" wrapping="true"/>
+				</expandedHeading>
 
-					<Label text="Carrier ID" />
-					<Text text="{Carrid}" />
+				<snappedHeading>
+					<m:FlexBox  fitContainer="true" alignItems="Center">
+						<m:Title text="Flight details of {Connid}" wrapping="true"/>
+					</m:FlexBox>
+				</snappedHeading>
 
-					<Label text="Connection ID" />
-					<Text text="{Connid}" />
+				<expandedContent>
+					<m:Text text="From {Cityfrom} to {Cityto}"/>
+				</expandedContent>
 
-					<Label text="Flight date" />
-					<Text text="{Fldate}" />
+				<snappedContent>
+					<m:Text text="From {Cityfrom} to {Cityto}"/>
+				</snappedContent>
 
-					<Label text="Price" />
-					<Text text="{Price}" />
+				<actions>
+					<m:OverflowToolbarButton icon="sap-icon://edit" text="edit header" type="Emphasized" tooltip="edit"/>
+					<m:OverflowToolbarButton icon="sap-icon://pull-down" text="show section" type="Emphasized" tooltip="pull-down"/>
+					<m:OverflowToolbarButton icon="sap-icon://show" text="show state" tooltip="show"/>
+					<m:Button text="Toggle Footer" press="toggleFooter"/>
+				</actions>
+			</ObjectPageDynamicHeaderTitle>
+		</headerTitle>
 
-					<Label text="Currency" />
-					<Text text="{Currency}" />
+		<headerContent>
+			<m:FlexBox wrap="Wrap">
+				
+			</m:FlexBox>
+		</headerContent>
 
-					<Label text="Plane type" />
-					<Text text="{Planetype}" />
+		<sections>
+			<ObjectPageSection titleUppercase="false" id="goalsSection" title="Flight details">
+				<subSections>
+					<ObjectPageSubSection id="goalsSectionSS1">
+						<blocks>
+							<m:VBox>
+								<m:Label text="Manndt" />
+								<m:Text text="{Mandt}" />
 
-					<Label text="Maximum seats" />
-					<Text text="{Seatsmax}" />
-				</VBox>
-		</f:content>
-		<!-- DynamicPage Footer -->
-		<f:footer>
-			<OverflowToolbar>
-				<Button icon="sap-icon://message-popup"
-						text="Footer button"
-						type="Emphasized"
-						press="onMessageButtonPress"
-						visible="{= !!${/messagesLength}}"/>
-				<ToolbarSpacer/>
-				<Button type="Accept" text="Accept"/>
-				<Button type="Reject" text="Reject"/>
-			</OverflowToolbar>
-		</f:footer>
-	</f:DynamicPage>
+								<m:Label text="Carrier ID" />
+								<m:Text text="{Carrid}" />
+
+								<m:Label text="Connection ID" />
+								<m:Text text="{Connid}" />
+
+								<m:Label text="Flight date" />
+								<m:Text text="{Fldate}" />
+
+								<m:Label text="Price" />
+								<m:Text text="{Price}" />
+
+								<m:Label text="Currency" />
+								<m:Text text="{Currency}" />
+
+								<m:Label text="Plane type" />
+								<m:Text text="{Planetype}" />
+
+							</m:VBox>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+
+			<ObjectPageSection titleUppercase="false" id="personalSection" title="Seats" importance="Medium">
+				<subSections>
+					<ObjectPageSubSection id="personalSectionSS1" title="Seats" titleUppercase="false">
+						<blocks>
+							<m:VBox>
+								<m:Label text="Plane type" />
+								<m:Text text="{Planetype}" />
+
+								<m:Label text="Maximum seats in economy" />
+								<m:Text text="{Seatsmax}" />
+
+								<m:Label text="Sold seats in economy" />
+								<m:Text text="{Seatsocc}" />
+
+								<m:Label text="Maximum seats in business" />
+								<m:Text text="{SeatsmaxB}" />
+
+								<m:Label text="Sold seats in business" />
+								<m:Text text="{SeatsoccB}" />
+
+								<m:Label text="Maximum in first" />
+								<m:Text text="{SeatsmaxF}" />
+
+								<m:Label text="Sold seats in first" />
+								<m:Text text="{SeatsoccF}" />
+
+							</m:VBox>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+
+			<ObjectPageSection titleUppercase="false" id="employmentSection" title="Plane details">
+				<subSections>
+					<ObjectPageSubSection id="employmentSectionSS1" title="Plane details" titleUppercase="false">
+						<blocks>
+							<m:VBox>
+								<m:Label text="Plane type" />
+								<m:Text text="{Planetype}" />
+
+								<m:Label text="Price" />
+								<m:Text text="{Price}" />
+							</m:VBox>
+						</blocks>
+					</ObjectPageSubSection>
+				</subSections>
+			</ObjectPageSection>
+		</sections>
+		<footer>
+			<m:OverflowToolbar>
+				<m:ToolbarSpacer />
+				<m:Button type="Accept" text="Accept"/>
+				<m:Button type="Reject" text="Reject"/>
+			</m:OverflowToolbar>
+		</footer>
+	</ObjectPageLayout>
 </mvc:View>
