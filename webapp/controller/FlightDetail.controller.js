@@ -15,9 +15,9 @@ sap.ui.define([
             this._oRouter.getRoute("flightDetail").attachPatternMatched(this._routePatternMatched, this);
 
             var freeSeatsModel = new JSONModel({
-                "econSeatsFree": 1,
-                "businessSeatsFree": 2,
-                "firstSeeatsFree": 3
+                "econSeatsFree": 0,
+                "businessSeatsFree": 0,
+                "firstSeeatsFree": 0
             });
 
             this.setModel(freeSeatsModel, "freeSeatsModel");
@@ -46,19 +46,18 @@ sap.ui.define([
 				}.bind(this)
             });
 
-            setTimeout(() => {  this.getSeatsSpots(); }, 200);
+            setTimeout(() => {  this.getSeatsSpots(); }, 500);
             //this.getSeatsSpots();
         },
 
+        //runs after .5 second timeout so models are refreshed
         getSeatsSpots: function() {
             var freeSeatsModel = this.getModel("freeSeatsModel");
             var oDataModel = this.getModel("flightInfo");
-            //freeSeatsModel.setProperty("/econSeatsFree", this.getModel("flightInfo").getProperty("/Seatsmax") - this.getModel("flightInfo").getProperty("/Seatsocc"))
 
-            //console.log(oDataModel.getProperty("/Connid"));
-            console.log(oDataModel.getProperty("/Seatsmax") - oDataModel.getProperty("/Seatsocc"));
             freeSeatsModel.setProperty("/econSeatsFree", (oDataModel.getProperty("/Seatsmax") - oDataModel.getProperty("/Seatsocc")))
-            console.log(freeSeatsModel.getProperty("/econSeatsFree"));
+            freeSeatsModel.setProperty("/businessSeatsFree", (oDataModel.getProperty("/SeatsmaxB") - oDataModel.getProperty("/SeatsoccB")))
+            freeSeatsModel.setProperty("/firstSeeatsFree", (oDataModel.getProperty("/SeatsmaxF") - oDataModel.getProperty("/SeatsoccF")))
         },
 
         bookFlight: function() {

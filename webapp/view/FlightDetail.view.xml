@@ -110,6 +110,28 @@
 
 									<m:Label text="Sold seats in first" />
 									<m:Text text="{flightInfo>/SeatsoccF}" />
+								</m:VBox>
+							</m:HBox>
+						</blocks>
+					</ObjectPageSubSection>
+					<ObjectPageSubSection title="Free seats" titleUppercase="false">
+						<blocks>
+							<m:HBox>
+								<m:VBox>
+									<m:Label text="Free seats in economy" />
+									<m:Text text="{freeSeatsModel>/econSeatsFree}" />
+								</m:VBox>
+							</m:HBox>
+							<m:HBox>
+								<m:VBox>
+									<m:Label text="Free seats in business" />
+									<m:Text text="{freeSeatsModel>/businessSeatsFree}" />
+								</m:VBox>
+							</m:HBox>
+							<m:HBox>
+								<m:VBox>
+									<m:Label text="Free in first" />
+									<m:Text text="{freeSeatsModel>/firstSeeatsFree}" />
 
 								</m:VBox>
 							</m:HBox>
