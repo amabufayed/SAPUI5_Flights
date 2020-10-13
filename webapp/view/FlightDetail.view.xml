@@ -1,39 +1,36 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.uxap"
-	xmlns:layout="sap.ui.layout"
 	controllerName="SAPUI_Flights.controller.FlightDetail"
 	xmlns:m="sap.m"
 	height="100%">
 	<ObjectPageLayout id="ObjectPageLayout"
 		showTitleInHeaderContent="true"
 		showEditHeaderButton="true"
-		editHeaderButtonPress="handleEditBtnPress">
+		editHeaderButtonPress="handleEditBtnPress"
+		showFooter="true">
 		<headerTitle>
 			<ObjectPageDynamicHeaderTitle>
 
 				<expandedHeading>
-						<m:Title text="Flight details of {Connid}" wrapping="true"/>
+						<m:Title text="Flight details of {flightInfo>/Connid}" wrapping="true"/>
 				</expandedHeading>
 
 				<snappedHeading>
 					<m:FlexBox  fitContainer="true" alignItems="Center">
-						<m:Title text="Flight details of {Connid}" wrapping="true"/>
+						<m:Title text="Flight details of {flightInfo>/Connid}" wrapping="true"/>
 					</m:FlexBox>
 				</snappedHeading>
 
 				<expandedContent>
-					<m:Text text="From {Cityfrom} to {Cityto}"/>
+					<m:Text text="From {flights>/Cityfrom} to {flights>/Cityto}"/>
 				</expandedContent>
 
 				<snappedContent>
-					<m:Text text="From {Cityfrom} to {Cityto}"/>
+					<m:Text text="From {flights>/Cityfrom} to {flights>/Cityto}"/>
 				</snappedContent>
 
 				<actions>
-					<m:OverflowToolbarButton icon="sap-icon://edit" text="edit header" type="Emphasized" tooltip="edit"/>
-					<m:OverflowToolbarButton icon="sap-icon://pull-down" text="show section" type="Emphasized" tooltip="pull-down"/>
-					<m:OverflowToolbarButton icon="sap-icon://show" text="show state" tooltip="show"/>
-					<m:Button text="Toggle Footer" press="toggleFooter"/>
+					
 				</actions>
 			</ObjectPageDynamicHeaderTitle>
 		</headerTitle>
@@ -49,61 +46,73 @@
 				<subSections>
 					<ObjectPageSubSection id="goalsSectionSS1">
 						<blocks>
-							<m:VBox>
-								<m:Label text="Manndt" />
-								<m:Text text="{Mandt}" />
+							<m:HBox>
+								<m:VBox>
+									<m:Label text="Manndt" />
+									<m:Text text="{flightInfo>/Mandt}" />
 
-								<m:Label text="Carrier ID" />
-								<m:Text text="{Carrid}" />
+									<m:Label text="Carrier ID" />
+									<m:Text text="{flightInfo>/Carrid}" />
 
-								<m:Label text="Connection ID" />
-								<m:Text text="{Connid}" />
+									<m:Label text="Connection ID" />
+									<m:Text text="{flightInfo>/Connid}" />
+								</m:VBox>
+							</m:HBox>
+							<m:HBox>
+								<m:VBox>
+									<m:Label text="Flight date" />
+									<m:Text text="{flightInfo>/Fldate}" />
 
-								<m:Label text="Flight date" />
-								<m:Text text="{Fldate}" />
+									<m:Label text="Plane type" />
+									<m:Text text="{flightInfo>/Planetype}" />
+								</m:VBox>
+							</m:HBox>
+							<m:HBox>
+								<m:VBox>
+									<m:Label text="Price" />
+									<m:Text text="{flightInfo>/Price}" />
 
-								<m:Label text="Price" />
-								<m:Text text="{Price}" />
-
-								<m:Label text="Currency" />
-								<m:Text text="{Currency}" />
-
-								<m:Label text="Plane type" />
-								<m:Text text="{Planetype}" />
-
-							</m:VBox>
+									<m:Label text="Currency" />
+									<m:Text text="{flightInfo>/Currency}" />
+								</m:VBox>
+							</m:HBox>
 						</blocks>
 					</ObjectPageSubSection>
 				</subSections>
 			</ObjectPageSection>
 
-			<ObjectPageSection titleUppercase="false" id="personalSection" title="Seats" importance="Medium">
+			<ObjectPageSection titleUppercase="false" title="Seats" importance="Medium">
 				<subSections>
-					<ObjectPageSubSection id="personalSectionSS1" title="Seats" titleUppercase="false">
+					<ObjectPageSubSection title="Seats" titleUppercase="false">
 						<blocks>
-							<m:VBox>
-								<m:Label text="Plane type" />
-								<m:Text text="{Planetype}" />
+							<m:HBox>
+								<m:VBox>
+									<m:Label text="Maximum seats in economy" />
+									<m:Text text="{flightInfo>/Seatsmax}" />
 
-								<m:Label text="Maximum seats in economy" />
-								<m:Text text="{Seatsmax}" />
+									<m:Label text="Sold seats in economy" />
+									<m:Text text="{flightInfo>/Seatsocc}" />
+								</m:VBox>
+							</m:HBox>
+							<m:HBox>
+								<m:VBox>
+									<m:Label text="Maximum seats in business" />
+									<m:Text text="{flightInfo>/SeatsmaxB}" />
 
-								<m:Label text="Sold seats in economy" />
-								<m:Text text="{Seatsocc}" />
+									<m:Label text="Sold seats in business" />
+									<m:Text text="{flightInfo>/SeatsoccB}" />
+								</m:VBox>
+							</m:HBox>
+							<m:HBox>
+								<m:VBox>
+									<m:Label text="Maximum in first" />
+									<m:Text text="{flightInfo>/SeatsmaxF}" />
 
-								<m:Label text="Maximum seats in business" />
-								<m:Text text="{SeatsmaxB}" />
+									<m:Label text="Sold seats in first" />
+									<m:Text text="{flightInfo>/SeatsoccF}" />
 
-								<m:Label text="Sold seats in business" />
-								<m:Text text="{SeatsoccB}" />
-
-								<m:Label text="Maximum in first" />
-								<m:Text text="{SeatsmaxF}" />
-
-								<m:Label text="Sold seats in first" />
-								<m:Text text="{SeatsoccF}" />
-
-							</m:VBox>
+								</m:VBox>
+							</m:HBox>
 						</blocks>
 					</ObjectPageSubSection>
 				</subSections>
@@ -128,8 +137,7 @@
 		<footer>
 			<m:OverflowToolbar>
 				<m:ToolbarSpacer />
-				<m:Button type="Accept" text="Accept"/>
-				<m:Button type="Reject" text="Reject"/>
+				<m:Button type="Accept" text="Book this flight" press=".bookFlight"/>
 			</m:OverflowToolbar>
 		</footer>
 	</ObjectPageLayout>
