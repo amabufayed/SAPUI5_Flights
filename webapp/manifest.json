@@ -117,6 +117,13 @@
 						"home",
 						"flightDetail"
 					]
+				},
+				{
+					"pattern": "booking",
+					"name": "bookingProcess",
+					"target": [
+						"bookingProcess"
+					]
 				}
 			],
 			"targets": {
@@ -131,6 +138,10 @@
 				"flightDetail": {
 					"viewName": "FlightDetail",
 					"controlAggregation": "midColumnPages"
+				},
+				"bookingProcess": {
+					"viewName": "BookingProcess",
+					"controlAggregation": "beginColumnPages"
 				}
 			}
 		}

@@ -1,0 +1,58 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+	xmlns="sap.uxap"
+	controllerName="SAPUI_Flights.controller.BookingProcess"
+	xmlns:m="sap.m"
+	height="100%">
+	<ObjectPageLayout id="ObjectPageLayout"
+		showTitleInHeaderContent="true"
+		showEditHeaderButton="true"
+		editHeaderButtonPress="handleEditBtnPress"
+		showFooter="true">
+		<headerTitle>
+			<ObjectPageDynamicHeaderTitle>
+
+				<expandedHeading>
+						<m:Title text="Booking process: {bookingModel>/bookingForSeatClass}" wrapping="true"/>
+				</expandedHeading>
+
+				<snappedHeading>
+					<m:FlexBox  fitContainer="true" alignItems="Center">
+						<m:Title text="Booking process" wrapping="true"/>
+					</m:FlexBox>
+				</snappedHeading>
+
+				<expandedContent>
+					<m:Text text="From {flights>/Cityfrom} to {flights>/Cityto}"/>
+				</expandedContent>
+
+				<snappedContent>
+					<m:Text text="From {flights>/Cityfrom} to {flights>/Cityto}"/>
+				</snappedContent>
+
+				<actions>
+					
+				</actions>
+			</ObjectPageDynamicHeaderTitle>
+		</headerTitle>
+
+		<headerContent>
+			<m:FlexBox wrap="Wrap">
+				
+			</m:FlexBox>
+		</headerContent>
+
+		<sections>
+			
+		</sections>
+		<footer>
+			<m:OverflowToolbar>
+				<m:ToolbarSpacer />
+				<m:Button type="Accept" text="Book this flight" press=".bookFlight"/>
+			</m:OverflowToolbar>
+		</footer>
+	</ObjectPageLayout>
+</mvc:View>
+
+
+
+				

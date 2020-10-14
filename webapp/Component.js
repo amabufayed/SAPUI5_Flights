@@ -1,8 +1,9 @@
 sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/Device",
-	"SAPUI_Flights/model/models"
-], function(UIComponent, Device, models) {
+	"SAPUI_Flights/model/models",
+	"sap/ui/model/json/JSONModel"
+], function(UIComponent, Device, models, JSONModel) {
 	"use strict";
 
 	return UIComponent.extend("SAPUI_Flights.Component", {
@@ -20,11 +21,27 @@ sap.ui.define([
 			// call the base component's init function
 			UIComponent.prototype.init.apply(this, arguments);
 
+			var freeSeatsModel = new JSONModel({
+                "econSeatsFree": 0,
+                "businessSeatsFree": 0,
+                "firstSeeatsFree": 0
+            });
+
+			this.setModel(freeSeatsModel, "freeSeatsModel");
+
+			var bookingModel = new JSONModel({
+                "bookingForSeatClass" : ""
+            });
+
+            this.setModel(bookingModel, "bookingModel");
+
 			// set the device model
 			this.setModel(models.createDeviceModel(), "device");
 
 			// initialize the router
 			this.getRouter().initialize();
+
+			
 		}
 	});
 });

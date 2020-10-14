@@ -120,19 +120,21 @@
 								<m:VBox>
 									<m:Label text="Free seats in economy" />
 									<m:Text text="{freeSeatsModel>/econSeatsFree}" />
+									<m:Button id="economyButton" text="Book economy class seat" press=".bookflight" enabled="true" />
 								</m:VBox>
 							</m:HBox>
 							<m:HBox>
 								<m:VBox>
 									<m:Label text="Free seats in business" />
 									<m:Text text="{freeSeatsModel>/businessSeatsFree}" />
+									<m:Button id="businessButton" text="Book business class seat" press=".bookflight" enabled="true" />
 								</m:VBox>
 							</m:HBox>
 							<m:HBox>
 								<m:VBox>
 									<m:Label text="Free in first" />
 									<m:Text text="{freeSeatsModel>/firstSeeatsFree}" />
-
+									<m:Button id="firstClassButton" text="Book first class seat" press=".bookflight" enabled="true" />
 								</m:VBox>
 							</m:HBox>
 						</blocks>
@@ -164,3 +166,7 @@
 		</footer>
 	</ObjectPageLayout>
 </mvc:View>
+
+
+
+				
