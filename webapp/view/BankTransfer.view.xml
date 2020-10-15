@@ -1,0 +1,12 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc"
+	controllerName="SAPUI_Flights.controller.BankTransfer"
+	xmlns="sap.m"
+	height="100%">
+    <Page>
+        <Text text="Bank transfer" />
+    </Page>
+</mvc:View>
+
+
+
+				

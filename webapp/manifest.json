@@ -119,10 +119,26 @@
 					]
 				},
 				{
-					"pattern": "booking",
+					"pattern": "booking/{connid}",
 					"name": "bookingProcess",
 					"target": [
 						"bookingProcess"
+					]
+				},
+				{
+					"pattern": "booking/{connid}/paymentCC",
+					"name": "creditCard",
+					"target": [
+						"bookingProcess",
+						"creditCardPayment"
+					]
+				},
+				{
+					"pattern": "booking/{connid}/paymentBT",
+					"name": "bankTransfer",
+					"target": [
+						"bookingProcess",
+						"bankTransferPayment"
 					]
 				}
 			],
@@ -142,6 +158,14 @@
 				"bookingProcess": {
 					"viewName": "BookingProcess",
 					"controlAggregation": "beginColumnPages"
+				},
+				"creditCardPayment": {
+					"viewName": "CreditCardPayment",
+					"controlAggregation": "midColumnPages"
+				},
+				"bankTransferPayment": {
+					"viewName": "BankTransfer",
+					"controlAggregation": "midColumnPages"
 				}
 			}
 		}

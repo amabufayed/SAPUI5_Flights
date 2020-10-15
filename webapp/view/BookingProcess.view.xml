@@ -1,58 +1,131 @@
-<mvc:View xmlns:mvc="sap.ui.core.mvc"
-	xmlns="sap.uxap"
+<mvc:View 
+	
 	controllerName="SAPUI_Flights.controller.BookingProcess"
-	xmlns:m="sap.m"
-	height="100%">
-	<ObjectPageLayout id="ObjectPageLayout"
-		showTitleInHeaderContent="true"
-		showEditHeaderButton="true"
-		editHeaderButtonPress="handleEditBtnPress"
-		showFooter="true">
-		<headerTitle>
-			<ObjectPageDynamicHeaderTitle>
-
-				<expandedHeading>
-						<m:Title text="Booking process: {bookingModel>/bookingForSeatClass}" wrapping="true"/>
-				</expandedHeading>
-
-				<snappedHeading>
-					<m:FlexBox  fitContainer="true" alignItems="Center">
-						<m:Title text="Booking process" wrapping="true"/>
-					</m:FlexBox>
-				</snappedHeading>
-
-				<expandedContent>
-					<m:Text text="From {flights>/Cityfrom} to {flights>/Cityto}"/>
-				</expandedContent>
-
-				<snappedContent>
-					<m:Text text="From {flights>/Cityfrom} to {flights>/Cityto}"/>
-				</snappedContent>
-
-				<actions>
-					
-				</actions>
-			</ObjectPageDynamicHeaderTitle>
-		</headerTitle>
-
-		<headerContent>
-			<m:FlexBox wrap="Wrap">
-				
-			</m:FlexBox>
-		</headerContent>
-
-		<sections>
-			
-		</sections>
-		<footer>
-			<m:OverflowToolbar>
-				<m:ToolbarSpacer />
-				<m:Button type="Accept" text="Book this flight" press=".bookFlight"/>
-			</m:OverflowToolbar>
-		</footer>
-	</ObjectPageLayout>
+    xmlns:l="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<NavContainer id="wizardNavContainer">
+		<pages>
+			<Page
+                id="wizardContentPage"
+                title="Buy plane ticket">
+				<content>
+					<Wizard id="ShoppingCartWizard"
+						complete="completedHandler"
+						enableBranching="true"
+						class="sapUiResponsivePadding--header sapUiResponsivePadding--content">
+						<WizardStep
+							id="ContentsStep"
+							nextStep="paymentSelectionStep"
+							title="Ticket: {bookingModel>/bookingForSeatClass} for flight From {flights>/Cityfrom} to {flights>/Cityto}"
+							icon="sap-icon://cart">
+							<ObjectHeader
+								title="Ticket price"
+								number="{flightInfo>/Price}"
+								numberUnit="{flightInfo>/Currency}">
+								<attributes>
+									<ObjectAttribute text="This is the list of items in your shopping cart" />
+									<ObjectAttribute text="This is the list of items in your shopping cart" />
+								</attributes>
+							</ObjectHeader>
+							<l:BlockLayout>
+								<l:BlockLayoutRow>
+									<l:BlockLayoutCell
+										backgroundColorSet="ColorSet10"
+										backgroundColorShade="ShadeD">
+										<l:VerticalLayout>
+											<Title
+												text="Departure information"
+												level="H3"
+												titleStyle="H2"
+												class="sapUiTinyMarginTopBottom"/>
+											<Text
+												text="Departure:"
+												class="sapUiTinyMarginBottom"/>
+											<Text
+												text="From: {flights>/Cityfrom} at {path: 'flights>/Deptime/ms', formatter: '.formatter.formatTime'}"
+												class="sapUiTinyMarginBottom"/>
+											<Text
+												text="To: {flights>/Cityto} at {path: 'flights>/Arrtime/ms', formatter: '.formatter.formatTime'}"
+												class="sapUiTinyMarginBottom"/>
+											<Text
+												text="Flight time: {flights>/Fltime}"
+												class="sapUiTinyMarginBottom"/>
+										</l:VerticalLayout>
+									</l:BlockLayoutCell>
+									<l:BlockLayoutCell
+										backgroundColorSet="ColorSet11"
+										backgroundColorShade="ShadeD">
+										<l:VerticalLayout>
+											<Title
+												text="Flight details"
+												level="H3"
+												titleStyle="H2"
+												class="sapUiTinyMarginTopBottom"/>
+											<Text
+												text="Flight date: {flightInfo>/Fldate}"
+												class="sapUiTinyMarginBottom"/>
+											<Text
+												text="Carrier: {flightInfo>/Carrid}"
+												class="sapUiTinyMarginBottom"/> 
+											<Text
+												text="Carrier: {flightInfo>/Planetype}"
+												class="sapUiTinyMarginBottom"/>
+										</l:VerticalLayout>
+									</l:BlockLayoutCell>				
+								</l:BlockLayoutRow>
+							</l:BlockLayout>
+						</WizardStep>
+						<WizardStep
+							id="paymentSelectionStep"
+							title="Ticket for flight From {flights>/Cityfrom} to {flights>/Cityto}"
+							icon="sap-icon://cart">
+							<ObjectHeader
+								title="Type of payment"
+								number="{flightInfo>/Price}"
+								numberUnit="{flightInfo>/Currency}">
+								<attributes>
+									<ObjectAttribute text="Select type of payment from the bottom" />
+								</attributes>
+							</ObjectHeader>
+							<HBox
+								renderType="Bare"
+								alignItems="Center"
+								justifyContent="Center"
+								width="100%">
+								<SegmentedButton
+									select="setPaymentMethod"
+									id="paymentMethodSelection"
+									selectedKey="{/SelectedPayment}"
+									>
+									<items>
+										<SegmentedButtonItem
+											id="payViaCC"
+											key="creditCard"
+											text="Credit"/>
+										<SegmentedButtonItem
+											id="payViaBank"
+											key="bankTransfer"
+											text="Bank transfer"/>
+										<SegmentedButtonItem
+											id="payViaCOD"
+											key="creditCard"
+											text="PayPal"/>
+									</items>
+								</SegmentedButton>
+							</HBox>
+						</WizardStep>
+					</Wizard>
+				</content>
+				<footer>
+					<OverflowToolbar>
+						<ToolbarSpacer/>
+						<Button text="Cancel" press="handleWizardCancel"/>
+					</OverflowToolbar>
+				</footer>
+			</Page>
+		</pages>
+	</NavContainer>
 </mvc:View>
-
-
-
-				

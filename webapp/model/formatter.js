@@ -6,12 +6,11 @@ sap.ui.define([
 	"use strict";
 
         var formatter = {
-            seatsAvaliable: function(sValue) {
-                console.log(typeof(sValue))
-                if(sValue < 300)
-                    return "Success";
-                else
-                    return "Error";
+            formatTime: function(sValue) {
+                var date = new Date(sValue)
+                var minutes = "0" + date.getMinutes();
+                return date.getHours() + ":" + minutes.slice(-2);
             }
-        }
+        };
+        return formatter;
 });

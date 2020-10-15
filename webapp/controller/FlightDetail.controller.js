@@ -74,17 +74,16 @@ sap.ui.define([
         bookflight: function(oEvent) {
             var buttonId = oEvent.getSource().sId;
             if(buttonId.includes("business"))
-                this.getModel("bookingModel").setProperty("/bookingForSeatClass", "Business Class")
+                this.getModel("bookingModel").setProperty("/bookingForSeatClass", "Business Class");
             else if(buttonId.includes("economy"))
-                this.getModel("bookingModel").setProperty("/bookingForSeatClass", "Economy Class")
+                this.getModel("bookingModel").setProperty("/bookingForSeatClass", "Economy Class");
             else if(buttonId.includes("firstClass"))
-                this.getModel("bookingModel").setProperty("/bookingForSeatClass", "First Class")
+                this.getModel("bookingModel").setProperty("/bookingForSeatClass", "First Class");
 
 
-            console.log(this.getModel("bookingModel").getProperty("/bookingForSeatClass"))
+            console.log(this.getModel("bookingModel").getProperty("/bookingForSeatClass"));
 
-            this._oRouter.navTo("bookingProcess")
-            this._setLayout("One")
+            this._oRouter.navTo("bookingProcess", {connid: this.connid});
         }
 	});
 });
