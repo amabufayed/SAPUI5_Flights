@@ -12,6 +12,12 @@ sap.ui.define([
 		},
 		_routePatternMatched: function (oEvent) {
 			this._setLayout("Two");
+		},
+		bankTransfer: function() {
+			this.getModel("paymentModel").setProperty("/validated", true);
+			this._oRouter.navTo("bookinProcess");
+			this.getModel("userData").setProperty("/PaymentMethod", "BankTransfer")
+			this._setLayout("One");
 		}
 	});
 });

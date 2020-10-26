@@ -4,6 +4,13 @@
 	height="100%">
     <Page>
         <Text text="Bank transfer" />
+
+        <footer>
+			<OverflowToolbar>
+				<ToolbarSpacer />
+				<Button type="Emphasized" text="Confirm bank transfer" press=".bankTransfer"/>
+			</OverflowToolbar>
+		</footer>
     </Page>
 </mvc:View>
 

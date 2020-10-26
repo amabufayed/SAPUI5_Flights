@@ -1,6 +1,5 @@
 <mvc:View controllerName="SAPUI_Flights.controller.Welcome" xmlns:mvc="sap.ui.core.mvc"
 	displayBlock="true" xmlns="sap.m">
 	<Page title="Welcome to the flights page">
-		
 	</Page>
 </mvc:View>

@@ -30,10 +30,37 @@ sap.ui.define([
 			this.setModel(freeSeatsModel, "freeSeatsModel");
 
 			var bookingModel = new JSONModel({
-                "bookingForSeatClass" : ""
+				"bookingForSeatClass" : "",
+				"connid": ""
             });
 
-            this.setModel(bookingModel, "bookingModel");
+			this.setModel(bookingModel, "bookingModel");
+			
+			var validation = new JSONModel({
+				"validated": false,
+				"billing" : "",
+				"currency": ""
+			})
+			this.setModel(validation, "paymentModel")
+
+			var oData = new JSONModel({
+				"Ticketnumber" : "",
+				"Price" : "",
+				"Seatclass" : "",
+				"FlightDate" : "",
+				"Connid" : "",
+				"PaymentMethod" : "",
+				"CreditCardHolderName" : "",
+				"CreditCardNumber" : "",
+				"CreditCardSecurityNumber" : "",
+				"CreditCardExpirationDate" : "",
+				"Currency" : "",
+				"PassengerName" :"",
+				"PassengerSurname" : "",
+				"DateOfBirth" : "",
+				"DocumentNumber" : 0,
+			});
+			this.setModel(oData, "userData")
 
 			// set the device model
 			this.setModel(models.createDeviceModel(), "device");

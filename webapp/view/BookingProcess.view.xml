@@ -1,19 +1,19 @@
 <mvc:View 
-	
 	controllerName="SAPUI_Flights.controller.BookingProcess"
     xmlns:l="sap.ui.layout"
-    xmlns:form="sap.ui.layout.form"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns="sap.m"
-	xmlns:core="sap.ui.core">
+	xmlns:form="sap.ui.layout.form" >
 	<NavContainer id="wizardNavContainer">
 		<pages>
 			<Page
                 id="wizardContentPage"
+				showNavButton="true"
+				navButtonPress='.backToHomePage'
                 title="Buy plane ticket">
 				<content>
 					<Wizard id="ShoppingCartWizard"
-						complete="completedHandler"
+						complete='checkCompleted'
 						enableBranching="true"
 						class="sapUiResponsivePadding--header sapUiResponsivePadding--content">
 						<WizardStep
@@ -80,8 +80,10 @@
 						</WizardStep>
 						<WizardStep
 							id="paymentSelectionStep"
-							title="Ticket for flight From {flights>/Cityfrom} to {flights>/Cityto}"
-							icon="sap-icon://cart">
+							title="Select payment type"
+							nextStep="passengerInfoStep"
+							icon="sap-icon://cart"
+							validated="{paymentModel>/validated}">
 							<ObjectHeader
 								title="Type of payment"
 								number="{flightInfo>/Price}"
@@ -96,9 +98,10 @@
 								justifyContent="Center"
 								width="100%">
 								<SegmentedButton
-									select="setPaymentMethod"
+									select='setPaymentMethod'
 									id="paymentMethodSelection"
 									selectedKey="{/SelectedPayment}"
+									selectedItem='none'
 									>
 									<items>
 										<SegmentedButtonItem
@@ -109,20 +112,142 @@
 											id="payViaBank"
 											key="bankTransfer"
 											text="Bank transfer"/>
-										<SegmentedButtonItem
-											id="payViaCOD"
-											key="creditCard"
-											text="PayPal"/>
 									</items>
 								</SegmentedButton>
 							</HBox>
+						</WizardStep>
+						<WizardStep
+							id="passengerInfoStep"
+							title="Passenger information"
+							nextStep="reviewStep"
+							icon="sap-icon://cart"
+							validated="{paymentModel>/validated}">
+							<form:SimpleForm
+								editable="true"
+								layout="ResponsiveGridLayout">
+								<Label
+									labelFor="passengerName"
+									text="Passenger name"
+									required="true">
+									<layoutData>
+										<l:GridData span="XL4 L4 M4 S12"/>
+									</layoutData>
+								</Label>
+								<Input
+									id="passengerName"
+									placeholder="Passenger name"
+									value="{
+											path: 'userData>/PassengerName',
+											type: 'sap.ui.model.type.String',
+											constraints: {
+												minLength: 2,
+												search: '^[a-zA-Z]+[\\s]?[a-zA-Z]+$'
+											}
+										}"
+									change='validateField'>
+									<layoutData>
+										<l:GridData span="XL8 L8 M8 S12"/>
+									</layoutData>
+								</Input>
+								<Label
+									labelFor="passengerSurname"
+									text="Passenger surname"
+									required="true">
+									<layoutData>
+										<l:GridData span="XL4 L4 M4 S12"/>
+									</layoutData>
+								</Label>
+								<Input
+									id="passengerSurname"
+									placeholder="Passenger surname"
+									value="{
+											path: 'userData>/PassengerSurname',
+											type: 'sap.ui.model.type.String',
+											constraints: {
+												minLength: 2,
+												search: '^[a-zA-Z]+[\\s]?[a-zA-Z]+$'
+											}
+										}"
+									change='validateField'>
+									<layoutData>
+										<l:GridData span="XL8 L8 M8 S12"/>
+									</layoutData>
+								</Input>
+								<Label text="Date of birth"
+									labelFor="dateOfBirth">
+									<layoutData>
+										<l:GridData span="XL4 L4 M4 S12"/>
+									</layoutData>
+								</Label>
+								<DatePicker
+									id="dateOfBirth"
+									value="{
+										path: 'userData>/DateOfBirth',
+										type: 'sap.ui.model.type.String',
+										constraints: {
+											minLength: 5,
+											maxLength: 25
+										}
+									}"
+									required="true"
+									change='validateField'>
+									<layoutData>
+										<l:GridData span="XL8 L8 M8 S12"/>
+									</layoutData>
+								</DatePicker>
+								<Label
+									labelFor="documentNumber"
+									text="Document number"
+									required="true">
+									<layoutData>
+										<l:GridData span="XL4 L4 M4 S12"/>
+									</layoutData>
+								</Label>
+								<Input
+									id="documentNumber"
+									placeholder="document number"
+									value="{
+											path: 'userData>/DocumentNumber',
+											type: 'sap.ui.model.type.String',
+											constraints: {
+												minLength: 10,
+												maxLength: 40,
+												search: '^[a-zA-Z]+[\\s]?[a-zA-Z]+$'
+											}
+										}"
+									change='validateField'>
+									<layoutData>
+										<l:GridData span="XL8 L8 M8 S12"/>
+									</layoutData>
+								</Input>
+							</form:SimpleForm>
+
+						</WizardStep>
+						<WizardStep
+							id="reviewStep"
+							title="Review of your order"
+							icon="sap-icon://cart">
+							<Text text="Overview of yoru ticket info and billing" />
+							<Text text="Overview of yoru ticket info and billing" />
+							<Text text="Overview of yoru ticket info and billing" />
+							<Text text="Overview of yoru ticket info and billing" />
 						</WizardStep>
 					</Wizard>
 				</content>
 				<footer>
 					<OverflowToolbar>
 						<ToolbarSpacer/>
-						<Button text="Cancel" press="handleWizardCancel"/>
+						<Button text="Cancel" press='.handleWizardCancel' />
+					</OverflowToolbar>
+				</footer>
+			</Page>
+			<Page id="summaryPage"
+				title="Summary page">
+
+				<footer>
+					<OverflowToolbar>
+						<ToolbarSpacer/>
+						<Button text="Confirm" press='.confirmOrder' />
 					</OverflowToolbar>
 				</footer>
 			</Page>

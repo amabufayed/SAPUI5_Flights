@@ -1,7 +1,9 @@
 sap.ui.define([
-	"./BaseController"
+	"./BaseController",
+	"sap/ui/model/Filter",
+	"sap/ui/model/FilterOperator"
 ], function(
-	BaseController
+	BaseController, Filter, FilterOperator
 ) {
 	"use strict";
 
@@ -17,6 +19,24 @@ sap.ui.define([
 		onListItemPress: function(oEvent) {
 			var connid = oEvent.getSource().getBindingContext().getProperty("Connid");
 			this.getRouter().navTo("flightDetail", {connid: connid})
+		},
+		onSearch: function(oEvent) {
+
+			var aFilter = [];
+			var sQuery = oEvent.getParameter("query");
+	
+			if (sQuery) {
+				aFilter.push(new Filter("Cityfrom", FilterOperator.EQ, sQuery.toUpperCase()));
+			}
+
+			// filter binding
+			var oList = this.getView().byId("flightList");
+			var oBinding = oList.getBinding("items");
+			oBinding.filter(aFilter);
+
+
 		}
+
+
 	});
 });

@@ -80,9 +80,11 @@ sap.ui.define([
             else if(buttonId.includes("firstClass"))
                 this.getModel("bookingModel").setProperty("/bookingForSeatClass", "First Class");
 
+            this.getModel("paymentModel").setProperty("/currency", 
+                this.getModel("flightInfo").getProperty("/Currency"));
 
-            console.log(this.getModel("bookingModel").getProperty("/bookingForSeatClass"));
-
+            this.getModel("userData").setProperty("/FlightDate", 
+                this.getModel("flightInfo").getProperty("/Fldate"));
             this._oRouter.navTo("bookingProcess", {connid: this.connid});
         }
 	});

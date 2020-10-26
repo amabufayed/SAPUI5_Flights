@@ -4,11 +4,21 @@
 	displayBlock="true" 
 	xmlns="sap.m">
 	<Page title="Avaliable flights">
+	<subHeader>
+			<Toolbar id="searchBar33343">
+				<SearchField
+					id="searchField"
+					search='.onSearch'
+					placeholder="City from"
+					width="100%">
+				</SearchField>
+			</Toolbar>
+		</subHeader>
 		<content>
-			<List items="{
+			<List id="flightList" items="{
 				path: '/FlightsSet',
 				sorter: [{path: 'Cityfrom'}, {path: 'Cityto'}]
-			 }"> 
+			 	}"> 
 				<StandardListItem 
 					title="{Cityfrom} to {Cityto}"
 					description="No: {Connid}, Carrier: {Carrid}"

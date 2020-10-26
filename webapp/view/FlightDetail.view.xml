@@ -4,10 +4,10 @@
 	xmlns:m="sap.m"
 	height="100%">
 	<ObjectPageLayout id="ObjectPageLayout"
-		showTitleInHeaderContent="true"
-		showEditHeaderButton="true"
-		editHeaderButtonPress="handleEditBtnPress"
-		showFooter="true">
+		showTitleInHeaderContent='true'
+		showEditHeaderButton='true'
+		editHeaderButtonPress='handleEditBtnPress'
+		showFooter='true'>
 		<headerTitle>
 			<ObjectPageDynamicHeaderTitle>
 
@@ -42,7 +42,7 @@
 		</headerContent>
 
 		<sections>
-			<ObjectPageSection titleUppercase="false" id="goalsSection" title="Flight details">
+			<ObjectPageSection titleUppercase='false' id="goalsSection" title='Flight details'>
 				<subSections>
 					<ObjectPageSubSection id="goalsSectionSS1">
 						<blocks>
@@ -81,9 +81,9 @@
 				</subSections>
 			</ObjectPageSection>
 
-			<ObjectPageSection titleUppercase="false" title="Seats" importance="Medium">
+			<ObjectPageSection titleUppercase='false' title='Seats' importance='Medium'>
 				<subSections>
-					<ObjectPageSubSection title="Seats" titleUppercase="false">
+					<ObjectPageSubSection title='Seats' titleUppercase='false'>
 						<blocks>
 							<m:HBox>
 								<m:VBox>
@@ -114,7 +114,7 @@
 							</m:HBox>
 						</blocks>
 					</ObjectPageSubSection>
-					<ObjectPageSubSection title="Free seats" titleUppercase="false">
+					<ObjectPageSubSection title='Free seats' titleUppercase='false'>
 						<blocks>
 							<m:HBox>
 								<m:VBox>
@@ -142,9 +142,9 @@
 				</subSections>
 			</ObjectPageSection>
 
-			<ObjectPageSection titleUppercase="false" id="employmentSection" title="Plane details">
+			<ObjectPageSection titleUppercase='false' id="employmentSection" title='Plane details'>
 				<subSections>
-					<ObjectPageSubSection id="employmentSectionSS1" title="Plane details" titleUppercase="false">
+					<ObjectPageSubSection id="employmentSectionSS1" title='Plane details' titleUppercase='false'>
 						<blocks>
 							<m:VBox>
 								<m:Label text="Plane type" />
@@ -161,7 +161,7 @@
 		<footer>
 			<m:OverflowToolbar>
 				<m:ToolbarSpacer />
-				<m:Button type="Accept" text="Book this flight" press=".bookFlight"/>
+				<m:Button type="Accept" text="Book this flight" press='.bookFlight'/>
 			</m:OverflowToolbar>
 		</footer>
 	</ObjectPageLayout>

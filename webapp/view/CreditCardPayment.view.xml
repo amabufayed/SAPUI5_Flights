@@ -1,9 +1,139 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc"
 	controllerName="SAPUI_Flights.controller.CreditCardPayment"
 	xmlns="sap.m"
+    xmlns:layout="sap.ui.layout"
+    xmlns:form="sap.ui.layout.form"
 	height="100%">
-    <Page>
-        <Text text="credit card" />
+    <Page
+        title="Credit card payment">
+        <Text text="You selected credit card payment. Please fill fields below with your information" />
+        <form:SimpleForm
+            editable="true"
+            layout="ResponsiveGridLayout">
+            <Label
+                labelFor="creditCardHolderName"
+                text="Credit card holder name"
+                required="true">
+                <layoutData>
+                    <layout:GridData span="XL4 L4 M4 S12"/>
+                </layoutData>
+            </Label>
+            <Input
+                id="creditCardHolderName"
+                placeholder="Credit card holder name"
+                value="{
+                        path: 'userData>/CreditCardHolderName',
+                        type: 'sap.ui.model.type.String',
+                        constraints: {
+                            minLength: 2,
+                            search: '^[a-zA-Z]+[\\s]?[a-zA-Z]+$'
+                        }
+                    }"
+                change='validateField'>
+                <layoutData>
+                    <layout:GridData span="XL8 L8 M8 S12"/>
+                </layoutData>
+            </Input>
+            <Label
+                text="Credit card number"
+                labelFor="creditCardNumber"
+                required="true">
+                <layoutData>
+                    <layout:GridData span="XL4 L4 M4 S12"/>
+                </layoutData>
+            </Label>
+            <MaskInput
+                id="creditCardNumber"
+                mask = "CCCC-CCCC-CCCC-CCCC"
+                placeholderSymbol = "_"
+                value="{
+                    path: 'userData>/CreditCardNumber',
+                    type: 'sap.ui.model.type.String',
+                    constraints: {
+                        search: '^[0-9-]+$',
+                        minLength: 16
+                    }
+                }"
+                change='validateField'>
+                <rules>
+                    <MaskInputRule
+                        maskFormatSymbol="C"
+                        regex="[0-9]"/>
+                </rules>
+                <layoutData>
+                    <layout:GridData span="XL8 L8 M8 S12"/>
+                </layoutData>
+            </MaskInput>
+            <Label
+                text="Security number"
+                labelFor="creditCardSecurityNumber"
+                required="true">
+                <layoutData>
+                    <layout:GridData span="XL4 L4 M4 S12"/>
+                </layoutData>
+            </Label>
+            <MaskInput
+                id="creditCardSecurityNumber"
+                mask = "CCC"
+                placeholderSymbol = "_"
+                value="{
+                    path: 'userData>/CreditCardSecurityNumber',
+                    type: 'sap.ui.model.type.String',
+                    constraints: {
+                        minLength: 3,
+                        search: '^[0-9]+$'
+                    }
+                }"
+                change='validateField'>
+                <rules>
+                    <MaskInputRule
+                        maskFormatSymbol ="C"
+                        regex = "[0-9]"/>
+                </rules>
+                <layoutData>
+                    <layout:GridData span="XL8 L8 M8 S12"/>
+                </layoutData>
+            </MaskInput>
+            <Label text="Expiration date">
+                <layoutData>
+                    <layout:GridData span="XL4 L4 M4 S12"/>
+                </layoutData>
+            </Label>
+            <DatePicker
+                id="creditCardExpirationDate"
+                value="{
+                    path: 'userData>/CreditCardExpirationDate',
+                    type: 'sap.ui.model.type.String',
+                    constraints: {
+                        minLength: 7,
+                        maxLength: 7
+                    }
+                }"
+                valueFormat="MM/YYYY"
+                displayFormat="MM/YYYY"
+                required="true"
+                change='validateField'>
+                <layoutData>
+                    <layout:GridData span="XL8 L8 M8 S12"/>
+                </layoutData>
+            </DatePicker>
+        </form:SimpleForm>
+        <footer>
+            <Bar id="wizardFooterBar">
+                <contentLeft>
+                    <Button
+                        id="showPopoverButton"
+                        visible="{= ${message>/}.length === 0 ? false : true}"
+                        icon="sap-icon://message-popup"
+                        text="{= ${message>/}.length }"
+                        type="Emphasized"
+                        press='.onShowMessagePopoverPress'/>
+                </contentLeft>
+                <contentRight>
+                    <Button type="Emphasized" text="Save data" press=".saveData"/>
+                </contentRight>
+            </Bar>
+		</footer>
     </Page>
 </mvc:View>
 
