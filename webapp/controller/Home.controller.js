@@ -33,10 +33,6 @@ sap.ui.define([
 			var oList = this.getView().byId("flightList");
 			var oBinding = oList.getBinding("items");
 			oBinding.filter(aFilter);
-
-
 		}
-
-
 	});
 });

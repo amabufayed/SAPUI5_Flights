@@ -58,7 +58,7 @@ sap.ui.define([
 				"PassengerName" :"",
 				"PassengerSurname" : "",
 				"DateOfBirth" : "",
-				"DocumentNumber" : 0,
+				"DocumentNumber" : "",
 			});
 			this.setModel(oData, "userData")
 

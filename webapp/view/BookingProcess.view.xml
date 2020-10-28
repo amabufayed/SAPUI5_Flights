@@ -101,7 +101,7 @@
 									select='setPaymentMethod'
 									id="paymentMethodSelection"
 									selectedKey="{/SelectedPayment}"
-									selectedItem='none'
+									selectedButton='null'
 									>
 									<items>
 										<SegmentedButtonItem
@@ -212,7 +212,7 @@
 											constraints: {
 												minLength: 10,
 												maxLength: 40,
-												search: '^[a-zA-Z]+[\\s]?[a-zA-Z]+$'
+												search: '^[a-zA-Z0-9]+$'
 											}
 										}"
 									change='validateField'>

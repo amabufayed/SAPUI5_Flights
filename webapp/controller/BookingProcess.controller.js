@@ -1,9 +1,11 @@
 sap.ui.define([
 	"./BaseController",
 	"sap/ui/model/json/JSONModel",
-	"../model/formatter"
+	"../model/formatter",
+	"sap/m/MessagePopover",
+	"sap/m/MessagePopoverItem"
 ], function(
-	BaseController, JSONModel, formatter
+	BaseController, JSONModel, formatter, MessagePopover, MessagePopoverItem
 ) {
 	"use strict";
 
@@ -12,7 +14,7 @@ sap.ui.define([
 
 		onInit: function() {
 			this._oRouter = this.getRouter();
-            this._oRouter.getRoute("bookingProcess").attachPatternMatched(this._routePatternMatched, this);
+			this._oRouter.getRoute("bookingProcess").attachPatternMatched(this._routePatternMatched, this);
 		},
 		_routePatternMatched: function (oEvent) {
 			this._setLayout("One");
@@ -35,14 +37,9 @@ sap.ui.define([
 				}.bind(this)
 			});
 
-			//fix this button so none is selected...
-			this.getView().byId("paymentMethodSelection").setSelectedItem();
-
 			this.getModel("userData").setProperty("/connid", this.connid)
 
 			setTimeout(() => { this.userModelDataFill() }, 2000);
-
-
 		 },
 
 		 userModelDataFill: function() {
@@ -103,7 +100,6 @@ sap.ui.define([
 			this._navToWizardStep(this.byId("paymentSelectionStep"));
 			oWizard.discardProgress(oWizard.getSteps()[0]);
 			this.getModel("paymentModel").setProperty("/validated", true);
-			this.clearModel();
 		},
 
 		checkCompleted:  function() {

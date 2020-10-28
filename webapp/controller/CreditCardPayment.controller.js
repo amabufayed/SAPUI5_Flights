@@ -10,14 +10,16 @@ sap.ui.define([
 	return BaseController.extend("SAPUI_Flights.controller.CreditCardPayment", {
 		onInit: function() {
 			this._oRouter = this.getRouter();
-            this._oRouter.getRoute("creditCard").attachPatternMatched(this._routePatternMatched, this);
+			this._oRouter.getRoute("creditCard").attachPatternMatched(this._routePatternMatched, this);
+			
+			
+			this.setModel(sap.ui.getCore().getMessageManager().getMessageModel(), "message");
 		},
 		_routePatternMatched: function (oEvent) {
 			this.connid = oEvent.getParameter("arguments").connid;
 			
 			this._setLayout("Two");
 
-			this.setModel(sap.ui.getCore().getMessageManager().getMessageModel(), "message");
 		},
 		saveData: function() {
 			var paymentModel = this.getModel("userData");
@@ -44,6 +46,7 @@ sap.ui.define([
 
 			} catch {
 				oInput.setValueState("Error");
+				console.log(this.getModel("message"))
 				return true;
 			}
 		}

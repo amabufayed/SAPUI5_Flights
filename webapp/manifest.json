@@ -27,6 +27,7 @@
 	},
 	"sap.ui": {
 		"technology": "UI5",
+		"handleValidation": true,
 		"icons": {
 			"icon": "",
 			"favIcon": "",
