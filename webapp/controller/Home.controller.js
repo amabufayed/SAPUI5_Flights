@@ -20,6 +20,11 @@ sap.ui.define([
 			var connid = oEvent.getSource().getBindingContext().getProperty("Connid");
 			this.getRouter().navTo("flightDetail", {connid: connid})
 		},
+
+		/**
+		 * search function for searching of cities (from)
+		 * @param {} oEvent 
+		 */
 		onSearch: function(oEvent) {
 
 			var aFilter = [];

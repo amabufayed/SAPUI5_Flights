@@ -13,6 +13,7 @@ sap.ui.define([
 		_routePatternMatched: function (oEvent) {
 			this._setLayout("Two");
 		},
+		//setting payment method to bank transfer and opening booking process  wizzard
 		bankTransfer: function() {
 			this.getModel("paymentModel").setProperty("/validated", true);
 			this._oRouter.navTo("bookinProcess");

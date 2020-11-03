@@ -6,6 +6,7 @@ sap.ui.define([
 
 	return BaseController.extend("SAPUI_Flights.controller.App", {
 		onInit : function () {
+			//creating model for view layout.			
 			var oViewModel;
 			oViewModel = new JSONModel({
 				delay : 0,

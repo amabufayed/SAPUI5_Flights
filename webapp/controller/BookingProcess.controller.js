@@ -4,13 +4,11 @@ sap.ui.define([
 	"../model/formatter",
 	"sap/m/MessagePopover",
 	"sap/m/MessagePopoverItem",
-	"sap/m/MessageBox",
-	"sap/m/MessageToast"
+	"sap/m/MessageBox"
 ], function(
-	BaseController, JSONModel, formatter, MessagePopover, MessagePopoverItem, MessageBox, MessageToast
+	BaseController, JSONModel, formatter, MessagePopover, MessagePopoverItem, MessageBox
 ) {
 	"use strict";
-
 	return BaseController.extend("SAPUI_Flights.controller.BookingProcess", {
 		formatter: formatter,
 
@@ -18,6 +16,7 @@ sap.ui.define([
 			this._oRouter = this.getRouter();
 			this._oRouter.getRoute("bookingProcess").attachPatternMatched(this._routePatternMatched, this);
 
+			// https://sapyard.com/advance-sapui5-20-how-to-handling-input-validations-using-messagemanager-and-messagepopover/
 			// create a message manager and register the message model
 			this._oMessageManager = sap.ui.getCore().getMessageManager();
 			this._oMessageManager.registerObject(this.getView(), true);
@@ -38,6 +37,11 @@ sap.ui.define([
 			});
 			this.byId("showPopoverButton").addDependent(this.oMessagePopover);
 		},
+		/**
+		 * Oppening booking wizzard, setting page layotu to one column and setting values to date selection.
+		 * setting two odata models and timeout to two seconds because if timeout is not there wrong data will be filled to final model
+		 * @param {} oEvent 
+		 */
 		_routePatternMatched: function (oEvent) {
 			this._setLayout("One");
 			this.connid = oEvent.getParameter("arguments").connid;
@@ -66,7 +70,9 @@ sap.ui.define([
 			
 			setTimeout(() => { this.userModelDataFill() }, 2000);
 		 },
-
+		 /**
+		  * Filling userData model with data taht will be needed for sending to the service
+		  */
 		 userModelDataFill: function() {
 			var flightModel = this.getModel("flightInfo");
 			this.getModel("userData").setProperty("/FlightData/Connid", this.conid);
@@ -75,7 +81,11 @@ sap.ui.define([
 			this.getModel("userData").setProperty("/BillingData/Currency", flightModel.getProperty("/Currency"));
 			this.getModel("userData").setProperty("/FlightData/Seatclass", this.getModel("bookingModel").getProperty("/bookingForSeatClass"));
 		 },
-		 setPaymentMethod: function (oEvent) {
+		 /**
+		  * If page is refreshed we and we dont have connid data need to set new payment method.
+		  * 
+		  */
+		 setPaymentMethod: function () {
 			var selectedPayment = this.getView().byId("paymentMethodSelection").getProperty("selectedKey");
 			if(this.connid === undefined) {
 				alert("Missing data. Please start again, returning to home page");
@@ -85,6 +95,10 @@ sap.ui.define([
 				this._oRouter.navTo(selectedPayment, {connid: this.connid});
 			}
 		},
+
+		/**
+		 * clearing main models and discarding wizzard progress
+		 */
 		clearModel: function() {
 			var oDataModel = this.getModel("userData");
 			var data = oDataModel.getData();
@@ -116,7 +130,9 @@ sap.ui.define([
 			oNavContainer.attachAfterNavigate(_fnAfterNavigate);
 			oNavContainer.to(this.byId("wizardContentPage"));
 		},
-
+		/**
+		 * returning to home view and clearing models
+		 */
 		backToHomePage: function() {
 			this._oRouter.navTo("home")
 			this.clearModel();
@@ -125,7 +141,11 @@ sap.ui.define([
 		checkCompleted:  function() {
 			this.byId("wizardNavContainer").to(this.getView().byId("summaryPage"));
 		},
-
+		/**
+		 * creating ticket number
+		 * Parsing correct value of date of birth
+		 * setting values to write object for sending to ODATA service
+		 */
 		confirmOrder: function () {
 
 			var id = (new Date().getTime()).toString() + this.getModel("bookingModel").getProperty("/connid");
@@ -157,6 +177,9 @@ sap.ui.define([
 
 			this.backToHomePage();
 		},
+		/**
+		 * validation for input boxes
+		 */
 		validateField: function() {
 			this.oMessageTemplate = new MessagePopoverItem({
 				type: "{message>type}",
@@ -180,6 +203,9 @@ sap.ui.define([
 		onShowMessagePopoverPress: function (oEvent) {
 			this.oMessagePopover.openBy(oEvent.getSource());
 		},
+		/** 
+		 * final check on data in credit card information wizard step
+		 */
 		saveData: function() {
 			var creditCardHolderName = this.getView().byId("creditCardHolderName").getValue(),
 				creditCardNumber = this.getView().byId("creditCardNumber").getValue(),
@@ -198,6 +224,9 @@ sap.ui.define([
 				MessageBox.alert("Not all fields are filled or are filled incorectly");
 			}
 		},
+		/**
+		 * final check on data in passenger wizard step
+		 */
 		savePassengerData: function() {
 			var passengerName = this.getView().byId("passengerName").getValue(),
 				passengerSurname = this.getView().byId("passengerSurname").getValue(),
