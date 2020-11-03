@@ -16,7 +16,7 @@ sap.ui.define([
 		bankTransfer: function() {
 			this.getModel("paymentModel").setProperty("/validated", true);
 			this._oRouter.navTo("bookinProcess");
-			this.getModel("userData").setProperty("/PaymentMethod", "BankTransfer")
+			this.getModel("userData").setProperty("/BillingData/PaymentMethod", "BankTransfer")
 			this._setLayout("One");
 		}
 	});

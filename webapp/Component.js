@@ -38,27 +38,34 @@ sap.ui.define([
 			
 			var validation = new JSONModel({
 				"validated": false,
+				"validatedPerson": false,
 				"billing" : "",
 				"currency": ""
 			})
 			this.setModel(validation, "paymentModel")
 
 			var oData = new JSONModel({
-				"Ticketnumber" : "",
-				"Price" : "",
-				"Seatclass" : "",
-				"FlightDate" : "",
-				"Connid" : "",
-				"PaymentMethod" : "",
-				"CreditCardHolderName" : "",
-				"CreditCardNumber" : "",
-				"CreditCardSecurityNumber" : "",
-				"CreditCardExpirationDate" : "",
-				"Currency" : "",
-				"PassengerName" :"",
-				"PassengerSurname" : "",
-				"DateOfBirth" : "",
-				"DocumentNumber" : "",
+				FlightData: {
+					Ticketnumber : "",
+					Price : "",
+					Seatclass : "",
+					FlightDate : "",
+					Connid : ""
+				},
+				BillingData: {
+					PaymentMethod : "",
+					CreditCardHolderName : "",
+					CreditCardNumber : "",
+					CreditCardSecurityNumber : "",
+					CreditCardExpirationDate : "",
+					Currency : ""
+				},
+				PassengerData: {
+					PassengerName :"",
+					PassengerSurname : "",
+					DateOfBirth : "",
+					DocumentNumber : ""
+				}
 			});
 			this.setModel(oData, "userData")
 

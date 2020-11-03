@@ -84,44 +84,122 @@
 							nextStep="passengerInfoStep"
 							icon="sap-icon://cart"
 							validated="{paymentModel>/validated}">
-							<ObjectHeader
-								title="Type of payment"
-								number="{flightInfo>/Price}"
-								numberUnit="{flightInfo>/Currency}">
-								<attributes>
-									<ObjectAttribute text="Select type of payment from the bottom" />
-								</attributes>
-							</ObjectHeader>
-							<HBox
-								renderType="Bare"
-								alignItems="Center"
-								justifyContent="Center"
-								width="100%">
-								<SegmentedButton
-									select='setPaymentMethod'
-									id="paymentMethodSelection"
-									selectedKey="{/SelectedPayment}"
-									selectedButton='null'
-									>
-									<items>
-										<SegmentedButtonItem
-											id="payViaCC"
-											key="creditCard"
-											text="Credit"/>
-										<SegmentedButtonItem
-											id="payViaBank"
-											key="bankTransfer"
-											text="Bank transfer"/>
-									</items>
-								</SegmentedButton>
-							</HBox>
+							<form:SimpleForm
+								editable="true"
+								layout="ResponsiveGridLayout">
+								<Label
+									labelFor="creditCardHolderName"
+									text="Credit card holder name"
+									required="true">
+									<layoutData>
+										<l:GridData span="XL4 L4 M4 S12"/>
+									</layoutData>
+								</Label>
+								<Input
+									id="creditCardHolderName"
+									placeholder="Credit card holder name"
+									value="{
+											path: 'userData>/BillingData/CreditCardHolderName',
+											type: 'sap.ui.model.type.String',
+											constraints: {
+												minLength: 2,
+												search: '^[a-zA-Z]+[\\s]?[a-zA-Z]+$'
+											}
+										}"
+									change='validateField'>
+									<layoutData>
+										<l:GridData span="XL8 L8 M8 S12"/>
+									</layoutData>
+								</Input>
+								<Label
+									text="Credit card number"
+									labelFor="creditCardNumber"
+									required="true">
+									<layoutData>
+										<l:GridData span="XL4 L4 M4 S12"/>
+									</layoutData>
+								</Label>
+								<MaskInput
+									id="creditCardNumber"
+									mask = "CCCC-CCCC-CCCC-CCCC"
+									placeholderSymbol = "_"
+									value="{
+										path: 'userData>/BillingData/CreditCardNumber',
+										type: 'sap.ui.model.type.String',
+										constraints: {
+											search: '^[0-9-]+$',
+											minLength: 16
+										}
+									}"
+									change='validateField'>
+									<rules>
+										<MaskInputRule
+											maskFormatSymbol="C"
+											regex="[0-9]"/>
+									</rules>
+									<layoutData>
+										<l:GridData span="XL8 L8 M8 S12"/>
+									</layoutData>
+								</MaskInput>
+								<Label
+									text="Security number"
+									labelFor="creditCardSecurityNumber"
+									required="true">
+									<layoutData>
+										<l:GridData span="XL4 L4 M4 S12"/>
+									</layoutData>
+								</Label>
+								<MaskInput
+									id="creditCardSecurityNumber"
+									mask = "CCC"
+									placeholderSymbol = "_"
+									value="{
+										path: 'userData>/BillingData/CreditCardSecurityNumber',
+										type: 'sap.ui.model.type.String',
+										constraints: {
+											minLength: 3,
+											search: '^[0-9]+$'
+										}
+									}"
+									change='validateField'>
+									<rules>
+										<MaskInputRule
+											maskFormatSymbol ="C"
+											regex = "[0-9]"/>
+									</rules>
+									<layoutData>
+										<l:GridData span="XL8 L8 M8 S12"/>
+									</layoutData>
+								</MaskInput>
+								<Label text="Expiration date">
+									<layoutData>
+										<l:GridData span="XL4 L4 M4 S12"/>
+									</layoutData>
+								</Label>
+								<DatePicker
+									id="creditCardExpirationDate"
+									value="{
+										path: 'userData>/BillingData/CreditCardExpirationDate',
+										type: 'sap.ui.model.type.String',
+										constraints: {
+											minLength: 7,
+											maxLength: 7
+										}
+									}"
+									valueFormat="MM/YYYY"
+									displayFormat="MM/YYYY"
+									required="true"
+									change='validateField'>			
+								</DatePicker>
+							</form:SimpleForm>
+							<Button id='saveButton' text="Save data" press='.saveData' width="100px" type="Emphasized" enabled='true'/>
 						</WizardStep>
 						<WizardStep
 							id="passengerInfoStep"
 							title="Passenger information"
 							nextStep="reviewStep"
 							icon="sap-icon://cart"
-							validated="{paymentModel>/validated}">
+							validated="{paymentModel>/validatedPerson}">
 							<form:SimpleForm
 								editable="true"
 								layout="ResponsiveGridLayout">
@@ -137,7 +215,7 @@
 									id="passengerName"
 									placeholder="Passenger name"
 									value="{
-											path: 'userData>/PassengerName',
+											path: 'userData>/PassengerData/PassengerName',
 											type: 'sap.ui.model.type.String',
 											constraints: {
 												minLength: 2,
@@ -161,7 +239,7 @@
 									id="passengerSurname"
 									placeholder="Passenger surname"
 									value="{
-											path: 'userData>/PassengerSurname',
+											path: 'userData>/PassengerData/PassengerSurname',
 											type: 'sap.ui.model.type.String',
 											constraints: {
 												minLength: 2,
@@ -182,7 +260,7 @@
 								<DatePicker
 									id="dateOfBirth"
 									value="{
-										path: 'userData>/DateOfBirth',
+										path: 'userData>/PassengerData/DateOfBirth',
 										type: 'sap.ui.model.type.String',
 										constraints: {
 											minLength: 5,
@@ -207,7 +285,7 @@
 									id="documentNumber"
 									placeholder="document number"
 									value="{
-											path: 'userData>/DocumentNumber',
+											path: 'userData>/PassengerData/DocumentNumber',
 											type: 'sap.ui.model.type.String',
 											constraints: {
 												minLength: 10,
@@ -221,7 +299,7 @@
 									</layoutData>
 								</Input>
 							</form:SimpleForm>
-
+							<Button id='saveButtonPassenger' text="Save data" press='.savePassengerData' width="100px" type="Emphasized" enabled='true'/>
 						</WizardStep>
 						<WizardStep
 							id="reviewStep"
@@ -235,10 +313,16 @@
 					</Wizard>
 				</content>
 				<footer>
-					<OverflowToolbar>
-						<ToolbarSpacer/>
-						<Button text="Cancel" press='.handleWizardCancel' />
-					</OverflowToolbar>
+					<Bar id="wizardFooterBar" visible="{= ${message>/}.length === 0 ? false : true}">
+						<contentLeft>
+							<Button
+								id="showPopoverButton"
+								icon="sap-icon://message-popup"
+								text="{= ${message>/}.length }"
+								type="Emphasized"
+								press=".onShowMessagePopoverPress"/>
+						</contentLeft>
+					</Bar>
 				</footer>
 			</Page>
 			<Page id="summaryPage"

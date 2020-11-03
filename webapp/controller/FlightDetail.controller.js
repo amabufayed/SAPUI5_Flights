@@ -83,7 +83,7 @@ sap.ui.define([
             this.getModel("paymentModel").setProperty("/currency", 
                 this.getModel("flightInfo").getProperty("/Currency"));
 
-            this.getModel("userData").setProperty("/FlightDate", 
+            this.getModel("userData").setProperty("/FlightData/FlightDate", 
                 this.getModel("flightInfo").getProperty("/Fldate"));
             this._oRouter.navTo("bookingProcess", {connid: this.connid});
         }

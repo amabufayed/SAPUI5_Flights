@@ -6,8 +6,7 @@
 	<ObjectPageLayout id="ObjectPageLayout"
 		showTitleInHeaderContent='true'
 		showEditHeaderButton='true'
-		editHeaderButtonPress='handleEditBtnPress'
-		showFooter='true'>
+		editHeaderButtonPress='handleEditBtnPress'>
 		<headerTitle>
 			<ObjectPageDynamicHeaderTitle>
 
@@ -158,12 +157,6 @@
 				</subSections>
 			</ObjectPageSection>
 		</sections>
-		<footer>
-			<m:OverflowToolbar>
-				<m:ToolbarSpacer />
-				<m:Button type="Accept" text="Book this flight" press='.bookFlight'/>
-			</m:OverflowToolbar>
-		</footer>
 	</ObjectPageLayout>
 </mvc:View>
 
